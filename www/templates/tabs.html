@@ -15,6 +15,17 @@ navigation history that also transitions its views in and out.
     <ion-nav-view name="tab-foto"></ion-nav-view>
   </ion-tab>
 
+    <ion-tab title="Login" icon-off="ion-ios-locked" icon-on="ion-ios-locked-outline" href="#/tab/login">
+        <ion-nav-view name="tab-login"></ion-nav-view>
+    </ion-tab>
+
+    <ion-tab title="Logout" icon-off="ion-ios-unlocked" icon-on="ion-ios-unlocked-outline" ng-controller="LoginController" ng-click="logout()">
+    </ion-tab>
+
+    <ion-tab title="Secure" icon-off="ion-ios-keypad" icon-on="ion-ios-keypad-outline" href="#/tab/secure">
+        <ion-nav-view name="tab-secure"></ion-nav-view>
+    </ion-tab>
+
   <!-- Chats Tab
   <ion-tab title="Chats" icon-off="ion-ios-chatboxes-outline" icon-on="ion-ios-chatboxes" href="#/tab/chats">
     <ion-nav-view name="tab-chats"></ion-nav-view>
