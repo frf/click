@@ -1,8 +1,10 @@
 angular.module('starter.controllers', [])
 
-    .controller("LoginController", function($scope, $ionicHistory, $firebaseAuth, $location) {
+    .controller("LoginController", function($scope, $ionicHistory, $firebaseAuth, $location,$rootScope) {
 
         console.log('LOGIN');
+        $rootScope.hideTabs = true;
+
 
         $scope.login = function(username, password) {
             var fbAuth = $firebaseAuth(fb);
@@ -46,9 +48,12 @@ angular.module('starter.controllers', [])
     })
 .controller('DashCtrl', function($scope, $ionicHistory, $location, Chats){
 
+
         $ionicHistory.clearHistory();
 
         fbAuth = fb.getAuth();
+
+        console.log(fbAuth);
 
         if(fbAuth != null) {
 
@@ -58,26 +63,39 @@ angular.module('starter.controllers', [])
             };
 
         }else{
-            $location.path("/home");
+            $location.path("/tab/login");
         }
 })
-    .controller('FotoCtrl', function($scope){
+    .controller('FotoCtrl', function($scope,$ionicHistory,$location){
+
+        $ionicHistory.clearHistory();
+
+        fbAuth = fb.getAuth();
+
+        console.log(fbAuth);
+
+        if(fbAuth != null) {
+
+        }else{
+            $location.path("/tab/login");
+        }
 
     }).controller('HomeController', function($scope){
 
-    }).controller('SecureController',  function($scope, $ionicHistory, $firebaseArray, $cordovaCamera) {
+    }).controller('SecureController',  function($scope, $ionicHistory, $firebaseArray, $cordovaCamera,$location) {
 
         $ionicHistory.clearHistory();
 
         $scope.images = [];
 
         var fbAuth = fb.getAuth();
+
         if(fbAuth) {
             var userReference = fb.child("users/" + fbAuth.uid);
             var syncArray = $firebaseArray(userReference.child("images"));
             $scope.images = syncArray;
         } else {
-            $state.go("login");
+            $location.path("/tab/login");
         }
 
         $scope.upload = function() {

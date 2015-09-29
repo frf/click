@@ -6,7 +6,12 @@ var fb = null;
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic','ngCordova','starter.controllers', 'starter.services', "firebase"])
+    .directive('hideTabs', function($rootScope) {
+        return {
+            restrict: 'A'
 
+        };
+    })
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -22,6 +27,7 @@ angular.module('starter', ['ionic','ngCordova','starter.controllers', 'starter.s
     }
       fb = new Firebase("https://burning-fire-921.firebaseio.com/");
 
+      console.log("INIT:" + fb.getAuth());
   });
 })
 
@@ -31,6 +37,8 @@ angular.module('starter', ['ionic','ngCordova','starter.controllers', 'starter.s
   // Learn more here: https://github.com/angular-ui/ui-router
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
+  $urlRouterProvider.otherwise('/tab/login');
+
   $stateProvider
       .state("home", {
           url: "/home",
@@ -39,7 +47,7 @@ angular.module('starter', ['ionic','ngCordova','starter.controllers', 'starter.s
       })
       .state("tab.login", {
           url: "/login",
-          cache: false,
+          cache: true,
           views: {
               'tab-login': {
                   templateUrl: 'templates/login.html',
@@ -119,6 +127,6 @@ angular.module('starter', ['ionic','ngCordova','starter.controllers', 'starter.s
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/login');
+
 
 });
